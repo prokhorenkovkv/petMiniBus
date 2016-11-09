@@ -1,5 +1,8 @@
 package com.minibus.entities;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     private String _id;
-    private String id;
     private String firstName;
     private String lastName;
     private String phone;
@@ -20,14 +22,6 @@ public class User {
 
     public void set_id(String _id) {
         this._id = _id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -71,9 +65,30 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return new EqualsBuilder()
+                .append(_id, user._id)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(_id)
+                .toHashCode();
+    }
+
+    @Override
     public String toString() {
-        return "{\"id\":" + "\"" + id + "\"," +
-                "\"firstName\":" + "\"" + firstName + "\"," +
-                "\"lastName\":" + "\"" + lastName + "\"}";
+        return new ToStringBuilder(this)
+                .append("_id", _id)
+                .append("firstName", firstName)
+                .append("lastName", lastName)
+                .append("phone", phone)
+                .append("email", email)
+                .toString();
     }
 }

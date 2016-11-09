@@ -26,4 +26,4 @@ public class MongoConfig extends AbstractMongoConfiguration {
         return new MongoClient(environment.getProperty("mongo.host"),
                 Integer.parseInt(environment.getProperty("mongo.port")));
     }
-} 
+}
