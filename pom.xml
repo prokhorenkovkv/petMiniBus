@@ -1,0 +1,161 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.pkv</groupId>
+    <artifactId>MiniBus</artifactId>
+    <packaging>war</packaging>
+    <version>0.0.0-SNAPSHOT</version>
+    <name>MiniBus</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <java-version>1.8</java-version>
+        <servlet-version>3.1.0</servlet-version>
+        <spring-version>4.3.2.RELEASE</spring-version>
+        <spring-mongodb-version>1.9.2.RELEASE</spring-mongodb-version>
+        <jsp-version>2.3.1</jsp-version>
+        <jstl-version>1.2</jstl-version>
+        <mongo-driver-version>3.2.2</mongo-driver-version>
+    </properties>
+
+    <dependencies>
+
+        <!--Servlet-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>${jsp-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl-version}</version>
+        </dependency>
+
+        <!--Spring-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+
+
+        <!--Mongo-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>${mongo-driver-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>${spring-mongodb-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>1.12.3.RELEASE</version>
+        </dependency>
+
+        <!--JSON mapper-->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.8.3</version>
+        </dependency>
+
+
+        <!--Test-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <warName>petMinibus</warName>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!--<warSourceDirectory>${project.basedir}/src/main/webapp/WEB-INF</warSourceDirectory>
+                    <webResources>
+                        <resource>
+                            &lt;!&ndash; this is relative to the pom.xml directory &ndash;&gt;
+                            <directory>${project.basedir}/src/main/webapp/WEB-INF/resources</directory>
+                            <targetPath>WEB-INF/resources</targetPath>
+                        </resource>
+                        <resource>
+                            &lt;!&ndash; this is relative to the pom.xml directory &ndash;&gt;
+                            <directory>${project.basedir}/src/main/webapp/WEB-INF/layouts</directory>
+                            <targetPath>WEB-INF/layouts</targetPath>
+                        </resource>
+                        <resource>
+                            &lt;!&ndash; this is relative to the pom.xml directory &ndash;&gt;
+                            <directory>${project.basedir}/src/main/webapp/WEB-INF/views</directory>
+                            <targetPath>WEB-INF/views</targetPath>
+                        </resource>
+                    </webResources>-->
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <finalName>petMinibus</finalName>
+    </build>
+</project>
