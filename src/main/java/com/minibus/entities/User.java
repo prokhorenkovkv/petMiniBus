@@ -4,13 +4,14 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="users")
 public class User {
     @Id
-    private String _id;
+    private String id;
     private String firstName;
     private String lastName;
     @Indexed(unique = true)
@@ -19,12 +20,22 @@ public class User {
     private String email;
     private String password;
 
-    public String get_id() {
-        return _id;
+    public User() {
+        super();
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    @PersistenceConstructor
+    public User(String id, String firstName, String lastName, String phone, String email, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -73,21 +84,21 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return new EqualsBuilder()
-                .append(_id, user._id)
+                .append(id, user.id)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(_id)
+                .append(id)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("_id", _id)
+                .append("id", id)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("phone", phone)

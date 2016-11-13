@@ -23,6 +23,14 @@ public class UserService{
         return mongoOperations.findOne(Query.query(Criteria.where("id").is(id)), User.class);
     }
 
+    public User findByEmail(String email) {
+        return mongoOperations.findOne(Query.query(Criteria.where("email").is(email)), User.class);
+    }
+
+    public User findByPhone(String phone) {
+        return mongoOperations.findOne(Query.query(Criteria.where("phone").is(phone)), User.class);
+    }
+
     public void save(User user) {
         mongoOperations.save(user);
     }
@@ -30,5 +38,4 @@ public class UserService{
     public void delete(String id) {
         mongoOperations.findAndRemove(Query.query(Criteria.where("id").is(id)), User.class);
     }
-
 }

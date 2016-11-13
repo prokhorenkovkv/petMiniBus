@@ -14,13 +14,25 @@ public class UserController {
 
     @GetMapping("/users")
     public @ResponseBody User viewUsers() throws IOException {
-        return userService.findById("2");
-
+        return userService.findById("ObjectId(\"5823a63fee14f42b880955db\")");
     }
-    @PostMapping("/user/add")
-    public @ResponseBody /*String*/ void saveUser(@RequestBody String json) {
-        System.out.println(json);
-        //return "index";
+
+    @GetMapping("/user")
+    public User view() throws IOException {
+        System.out.println(userService.findById("5823a63fee14f42b880955db").getId());
+        return null;
+    }
+
+    @GetMapping("/user/add")
+    public /*@ResponseBody*/ String saveUser(/*@RequestBody String json*/) {
+        User user = new User();
+        //user.setId("jhg");
+        user.setFirstName("kostya");
+        user.setPhone("10101");
+        user.setEmail("emaillll");
+        userService.save(user);
+        //System.out.println(json);
+        return "index";
     }
 
     @GetMapping("/user/delete")

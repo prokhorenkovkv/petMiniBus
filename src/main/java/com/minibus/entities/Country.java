@@ -4,20 +4,25 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="countries")
 public class Country {
     @Id
-    private String _id;
+    private String id;
+    @Indexed(unique = true)
     private String countryName;
 
-    public String get_id() {
-        return _id;
+    @PersistenceConstructor
+    public Country(String id, String countryName) {
+        this.id = id;
+        this.countryName = countryName;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public String getId() {
+        return id;
     }
 
     public String getCountryName() {
@@ -34,21 +39,21 @@ public class Country {
         if (o == null || getClass() != o.getClass()) return false;
         Country country = (Country) o;
         return new EqualsBuilder()
-                .append(_id, country._id)
+                .append(id, country.id)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(_id)
+                .append(id)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("_id", _id)
+                .append("id", id)
                 .append("country", countryName)
                 .toString();
     }

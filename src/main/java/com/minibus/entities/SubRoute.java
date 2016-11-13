@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,27 +14,38 @@ import java.util.List;
 @Document(collection = "subRoutes")
 public class SubRoute {
     @Id
-    private String _id;
+    private String id;
     @DBRef
     private User userId;
     @DBRef
     private List<Route> routes;
     @DBRef
-    private Stop startStop;
+    private Stop startStopId;
     @DBRef
-    private Stop endStop;
+    private Stop endStopId;
     private List<WeekDay> weekDays;
     private String startTime;
     @DBRef
     private List<User> subscribers;
     private String isAvailable;
 
-    public String get_id() {
-        return _id;
+    @PersistenceConstructor
+    public SubRoute(String id, User userId, List<Route> routes,
+                    Stop startStopId, Stop endStopId, List<WeekDay> weekDays,
+                    String startTime, List<User> subscribers, String isAvailable) {
+        this.id = id;
+        this.userId = userId;
+        this.routes = routes;
+        this.startStopId = startStopId;
+        this.endStopId = endStopId;
+        this.weekDays = weekDays;
+        this.startTime = startTime;
+        this.subscribers = subscribers;
+        this.isAvailable = isAvailable;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public String getId() {
+        return id;
     }
 
     public User getUserId() {
@@ -52,20 +64,20 @@ public class SubRoute {
         this.routes = routes;
     }
 
-    public Stop getStartStop() {
-        return startStop;
+    public Stop getStartStopId() {
+        return startStopId;
     }
 
-    public void setStartStop(Stop startStop) {
-        this.startStop = startStop;
+    public void setStartStopId(Stop startStopId) {
+        this.startStopId = startStopId;
     }
 
     public Stop getEndStop() {
-        return endStop;
+        return endStopId;
     }
 
-    public void setEndStop(Stop endStop) {
-        this.endStop = endStop;
+    public void setEndStop(Stop endStopId) {
+        this.endStopId = endStopId;
     }
 
     public List<WeekDay> getWeekDays() {
@@ -106,24 +118,24 @@ public class SubRoute {
         if (o == null || getClass() != o.getClass()) return false;
         SubRoute subRoute = (SubRoute) o;
         return new EqualsBuilder()
-                .append(_id, subRoute._id)
+                .append(id, subRoute.id)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(_id)
+                .append(id)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("_id", _id)
+                .append("id", id)
                 .append("userId", userId)
-                .append("startStop", startStop)
-                .append("endStop", endStop)
+                .append("startStop", endStopId)
+                .append("endStop", endStopId)
                 .append("startTime", startTime)
                 .toString();
     }

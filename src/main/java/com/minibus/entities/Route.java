@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,18 +13,22 @@ import java.util.ArrayList;
 @Document(collection="routes")
 public class Route {
     @Id
-    private String _id;
+    private String id;
     private String type;
     private String number;
     @DBRef
     private ArrayList<Stop> stops;
 
-    public String get_id() {
-        return _id;
+    @PersistenceConstructor
+    public Route(String id, String type, String number, ArrayList<Stop> stops) {
+        this.id = id;
+        this.type = type;
+        this.number = number;
+        this.stops = stops;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public String getId() {
+        return id;
     }
 
     public String getType() {
@@ -56,21 +61,21 @@ public class Route {
         if (o == null || getClass() != o.getClass()) return false;
         Route route = (Route) o;
         return new EqualsBuilder()
-                .append(_id, route._id)
+                .append(id, route.id)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(_id)
+                .append(id)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("_id", _id)
+                .append("id", id)
                 .append("type", type)
                 .append("number", number)
                 .toString();

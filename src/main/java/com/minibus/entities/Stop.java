@@ -4,25 +4,31 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="stops")
 public class Stop {
     @Id
-    private String _id;
+    private String id;
     private String title;
     private String street;
     private String building;
     @DBRef
     private City cityId;
 
-    public String get_id() {
-        return _id;
+    @PersistenceConstructor
+    public Stop(String id, String title, String street, String building, City cityId) {
+        this.id = id;
+        this.title = title;
+        this.street = street;
+        this.building = building;
+        this.cityId = cityId;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -63,21 +69,21 @@ public class Stop {
         if (o == null || getClass() != o.getClass()) return false;
         Stop stop = (Stop) o;
         return new EqualsBuilder()
-                .append(_id, stop._id)
+                .append(id, stop.id)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(_id)
+                .append(id)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("_id", _id)
+                .append("id", id)
                 .append("title", title)
                 .append("street", street)
                 .append("building", building)
