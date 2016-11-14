@@ -23,6 +23,10 @@ public class CountryService {
         return mongoOperations.findOne(Query.query(Criteria.where("id").is(id)), Country.class);
     }
 
+    public Country find(Country country) {
+        return mongoOperations.findById(country, Country.class);
+    }
+
     public Country findByCountryName(String countryName) {
         return mongoOperations.findOne(Query.query(Criteria.where("countryName").is(countryName)), Country.class);
     }
@@ -31,7 +35,10 @@ public class CountryService {
         mongoOperations.save(country);
     }
 
-    public void delete(String id) {
+    public void deleteById(String id) {
         mongoOperations.findAndRemove(Query.query(Criteria.where("id").is(id)), Country.class);
+    }
+    public void delete(Country country) {
+        mongoOperations.remove(country);
     }
 }

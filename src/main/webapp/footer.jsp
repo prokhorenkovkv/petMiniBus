@@ -12,8 +12,8 @@
         <script src="resources/js/libs/angular.min.js"></script>
         <script src="resources/js/libs/jquery-2.2.4.min.js"></script>
         <script src="resources/js/libs/bootstrap.min.js"></script>
-        <script src="resources/js/angular/userService.js"></script>
-        <script src="resources/js/angular/userController.js"></script>
+        <script src="resources/js/angular/main.js"></script>
+        <script src="resources/js/angular/CountryController.js"></script>
     </div>
 </div>
 </body>

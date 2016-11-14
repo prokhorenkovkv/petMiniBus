@@ -15,6 +15,10 @@ public class Country {
     @Indexed(unique = true)
     private String countryName;
 
+    public Country(){
+
+    }
+
     @PersistenceConstructor
     public Country(String id, String countryName) {
         this.id = id;

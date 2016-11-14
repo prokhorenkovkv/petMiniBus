@@ -1,4 +1,6 @@
-app.controller('userController', function ($scope, $http) {
+'use strict';
+var miniBus = angular.module('miniBus',[]);
+miniBus.controller('userController', function ($scope, $http) {
     $scope.formData = {};
     $scope.loadData = function () {
         $http.get("/users")
@@ -9,7 +11,7 @@ app.controller('userController', function ($scope, $http) {
     $scope.submitForm = function () {
         $http({
             method: 'POST',
-            url: "user/add",
+            url: "user/save",
             data: $.param($scope.formData),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         });

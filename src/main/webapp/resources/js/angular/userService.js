@@ -1,5 +1,5 @@
-'use strict';
-var app = angular.module('miniBus', []);
+//'use strict';
+//var app = angular.module('miniBus', []);
 /*
 angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $q){
 
