@@ -1,5 +1,6 @@
 miniBus.controller('CountryController', function ($scope, $http) {
-
+    $scope.countryName = "56464";
+    //$scope.countryId = null;
     //save/update
     $scope.submitCountryForm = function () {
         var dataObject;
@@ -13,7 +14,6 @@ miniBus.controller('CountryController', function ($scope, $http) {
                 "countryName": $scope.countryName
             };
         }
-
         $http({
             method: 'POST',
             url: '/country/save',
@@ -29,19 +29,15 @@ miniBus.controller('CountryController', function ($scope, $http) {
                     //$scope.message = data.message;
                 }
             });
+        $scope.getCountries();
     };
 
     //delete
-    $scope.deleteCountry = function () {
-        var dataObject = {
-            "id": "582a2e58ee14f41768d8ee26",
-            "countryName": "kl;'"
-        };
-        //var id = '582a2eafee14f41768d8ee27';
+    $scope.deleteCountry = function (country) {
         $http({
             method: 'POST',
             url: '/country/delete',
-            data: JSON.stringify(dataObject),
+            data: JSON.stringify(country),
             headers: {'Content-Type': 'application/json'}
         })
             .success(function (data) {
@@ -53,14 +49,25 @@ miniBus.controller('CountryController', function ($scope, $http) {
                     //$scope.message = data.message;
                 }
             });
+        $scope.getCountries();
+    };
+
+    //edit
+    $scope.editCountry = function (country) {
+        $scope.countryName = country.countryName.toString();
+        alert(country.countryName.toString());
+    };
+
+    //fetch all countries
+    $scope.getCountries = function () {
+        $http({
+            method: 'GET',
+            url: '/countries'
+        })
+            .then(function success(response) {
+                $scope.countries = response.data;
+            }, function myError(response) {
+
+            });
     };
 });
-
-
-/*
- var dataObj = {
- name : $scope.name,
- employees : $scope.employees,
- headoffice : $scope.headoffice
- };
- var res = $http.post('/savecompany_json', dataObj);*/

@@ -9,12 +9,17 @@
 <div id="body" class="col-sm-offset-3">
     <div>WRAPPER</div>
 
-    <div ng-controller="CountryController">
-        <input type="text" ng-model="countryName">
-        <input type="submit" ng-click="submitCountryForm()">
+    <div ng-controller="CountryController" ng-init="countries = getCountries()">
+        <div ng-repeat="country in countries">
+            {{country.countryName}}
+            <button type="button" ng-click="editCountry(country)">Edit</button>
+            <button type="button" ng-click="deleteCountry(country)">Remove</button>
+        </div><br>
     </div>
     <div ng-controller="CountryController">
-        <button ng-click="deleteCountry()">delete smth</button>
+        <%--<input type="hidden" ng-model="countryId">--%>
+        <input type="text" ng-model="countryName">
+        <input type="submit" ng-click="submitCountryForm()">
     </div>
 </div>
 
