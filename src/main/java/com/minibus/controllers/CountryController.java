@@ -31,12 +31,6 @@ public class CountryController {
         countryService.save(country);
     }
 
-    /*@GetMapping(value = "/country/{id}/delete")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCountryById(@PathVariable String id) {
-        countryService.deleteById(id);
-    }*/
-
     @PostMapping(value = "/country/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteCountry(@RequestBody Country country) {

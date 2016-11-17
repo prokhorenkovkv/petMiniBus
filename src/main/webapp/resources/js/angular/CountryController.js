@@ -1,7 +1,5 @@
 miniBus.controller('CountryController', function ($scope, $http) {
-    $scope.countryName = "56464";
-    //$scope.countryId = null;
-    //save/update
+    //save/update country
     $scope.submitCountryForm = function () {
         var dataObject;
         if ($scope.countryId == null) {
@@ -29,10 +27,11 @@ miniBus.controller('CountryController', function ($scope, $http) {
                     //$scope.message = data.message;
                 }
             });
+        $scope.resetCountryForm();
         $scope.getCountries();
     };
 
-    //delete
+    //delete country
     $scope.deleteCountry = function (country) {
         $http({
             method: 'POST',
@@ -52,10 +51,10 @@ miniBus.controller('CountryController', function ($scope, $http) {
         $scope.getCountries();
     };
 
-    //edit
+    //edit country. fill in country form
     $scope.editCountry = function (country) {
         $scope.countryName = country.countryName.toString();
-        alert(country.countryName.toString());
+        $scope.countryId = country.id.toString();
     };
 
     //fetch all countries
@@ -69,5 +68,10 @@ miniBus.controller('CountryController', function ($scope, $http) {
             }, function myError(response) {
 
             });
+    };
+    //reset country form
+    $scope.resetCountryForm = function () {
+        $scope.countryName = null;
+        $scope.countryId = null;
     };
 });
