@@ -23,6 +23,10 @@ public class CityService {
         return mongoOperations.findOne(Query.query(Criteria.where("id").is(id)), City.class);
     }
 
+    public City find(City city) {
+        return mongoOperations.findById(city, City.class);
+    }
+
     public City findByZipCode(String zipCode) {
         return mongoOperations.findOne(Query.query(Criteria.where("zipCode").is(zipCode)), City.class);
     }
@@ -39,7 +43,7 @@ public class CityService {
         mongoOperations.save(city);
     }
 
-    public void delete(String id) {
-        mongoOperations.findAndRemove(Query.query(Criteria.where("id").is(id)), City.class);
+    public void delete(City city) {
+        mongoOperations.remove(city);
     }
 }

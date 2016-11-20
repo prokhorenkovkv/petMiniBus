@@ -17,14 +17,16 @@ public class City {
     private String zipCode;
     private String cityName;
     @DBRef
-    private Country countryId;
+    private Country country;
+
+    public City(){}
 
     @PersistenceConstructor
-    public City(String id, String zipCode, String cityName, Country countryId) {
+    public City(String id, String zipCode, String cityName, Country country) {
         this.id = id;
         this.zipCode = zipCode;
         this.cityName = cityName;
-        this.countryId = countryId;
+        this.country = country;
     }
 
     public String getId() {
@@ -47,12 +49,12 @@ public class City {
         this.cityName = cityName;
     }
 
-    public Country getCountryId() {
-        return countryId;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryId(Country countryId) {
-        this.countryId = countryId;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Override
@@ -78,7 +80,7 @@ public class City {
                 .append("id", id)
                 .append("zipCode", zipCode)
                 .append("cityName", cityName)
-                .append("countryId", countryId)
+                .append("country", country)
                 .toString();
     }
 }
