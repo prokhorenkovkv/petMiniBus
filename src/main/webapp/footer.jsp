@@ -14,6 +14,7 @@
         <script src="resources/js/libs/bootstrap.min.js"></script>
         <script src="resources/js/angular/main.js"></script>
         <script src="resources/js/angular/CountryController.js"></script>
+        <script src="resources/js/angular/CityController.js"></script>
     </div>
 </div>
 </body>

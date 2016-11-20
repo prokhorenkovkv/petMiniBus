@@ -71,7 +71,7 @@ miniBus.controller('CountryController', function ($scope, $http) {
     };
     //reset country form
     $scope.resetCountryForm = function () {
-        $scope.countryName = null;
         $scope.countryId = null;
+        $scope.countryName = null;
     };
 });

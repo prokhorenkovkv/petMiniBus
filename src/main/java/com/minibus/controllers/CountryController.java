@@ -16,12 +16,16 @@ public class CountryController {
     private CountryService countryService;
 
     @GetMapping(value = "/countries", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<Country> getCountries() {
+    public
+    @ResponseBody
+    List<Country> getCountries() {
         return countryService.findAll();
     }
 
     @GetMapping(value = "/country", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Country getCountry(@RequestBody Country country) {
+    public
+    @ResponseBody
+    Country getCountry(@RequestBody Country country) {
         return countryService.find(country);
     }
 
@@ -31,15 +35,15 @@ public class CountryController {
         countryService.save(country);
     }
 
-    @PostMapping(value = "/country/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCountry(@RequestBody Country country) {
-        countryService.delete(country);
-    }
-
     @PostMapping(value = "/country/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void editCountry(@RequestBody Country country) {
         countryService.save(country);
+    }
+
+    @PostMapping(value = "/country/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteCountry(@RequestBody Country country) {
+        countryService.delete(country);
     }
 }
