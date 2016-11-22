@@ -25,7 +25,7 @@
             <input type="hidden" ng-model="cityId">
             <input type="text" ng-model="cityName">
             <input type="text" ng-model="zipCode">
-            <select ng-options="country as country.countryName for country in countries" ng-model="country" ng-selected="country"></select>
+            <select ng-options="country as country.countryName for country in countries" ng-model="country"/>
             <input type="submit" ng-click="submitCityForm()">
         </div>
     </div>

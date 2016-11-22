@@ -1,31 +1,22 @@
 miniBus.controller('CountryController', function ($scope, $http) {
     //save/update country
     $scope.submitCountryForm = function () {
-        var dataObject;
-        if ($scope.countryId == null) {
-            dataObject = {
-                "countryName": $scope.countryName
-            };
-        } else {
-            dataObject = {
-                "id": $scope.countryId,
-                "countryName": $scope.countryName
-            };
-        }
+        var dataObject = {
+            "countryName": $scope.countryName
+        };
+        if ($scope.countryId != null) {
+            dataObject = angular.extend(dataObject, {"id": $scope.countryId});
+        };
         $http({
             method: 'POST',
             url: '/country/save',
             data: JSON.stringify(dataObject),
             headers: {'Content-Type': 'application/json'}
         })
-            .success(function (data) {
-                if (data.errors) {
-                    //$scope.errorName = data.errors.name;
-                    //$scope.errorUserName = data.errors.username;
-                    //$scope.errorEmail = data.errors.email;
-                } else {
-                    //$scope.message = data.message;
-                }
+            .then(function success() {
+
+            }, function error() {
+
             });
         $scope.resetCountryForm();
         $scope.getCountries();
@@ -39,14 +30,10 @@ miniBus.controller('CountryController', function ($scope, $http) {
             data: JSON.stringify(country),
             headers: {'Content-Type': 'application/json'}
         })
-            .success(function (data) {
-                if (data.errors) {
-                    //$scope.errorName = data.errors.name;
-                    //$scope.errorUserName = data.errors.username;
-                    //$scope.errorEmail = data.errors.email;
-                } else {
-                    //$scope.message = data.message;
-                }
+            .then(function success() {
+
+            }, function error() {
+
             });
         $scope.getCountries();
     };
@@ -65,7 +52,7 @@ miniBus.controller('CountryController', function ($scope, $http) {
         })
             .then(function success(response) {
                 $scope.countries = response.data;
-            }, function myError(response) {
+            }, function error() {
 
             });
     };
