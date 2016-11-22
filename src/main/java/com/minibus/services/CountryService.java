@@ -35,9 +35,6 @@ public class CountryService {
         mongoOperations.save(country);
     }
 
-    public void deleteById(String id) {
-        mongoOperations.findAndRemove(Query.query(Criteria.where("id").is(id)), Country.class);
-    }
     public void delete(Country country) {
         mongoOperations.remove(country);
     }

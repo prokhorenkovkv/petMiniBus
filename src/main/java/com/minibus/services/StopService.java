@@ -19,6 +19,10 @@ public class StopService {
         return mongoOperations.findAll(Stop.class);
     }
 
+    public Stop find(Stop stop) {
+        return mongoOperations.findById(stop, Stop.class);
+    }
+
     public Stop findById(String id) {
         return mongoOperations.findOne(Query.query(Criteria.where("id").is(id)), Stop.class);
     }
@@ -28,14 +32,14 @@ public class StopService {
     }
 
     public List<Stop> findByCityId(String cityId) {
-        return mongoOperations.find(Query.query(Criteria.where("countryId").is(cityId)), Stop.class);
+        return mongoOperations.find(Query.query(Criteria.where("cityId").is(cityId)), Stop.class);
     }
 
     public void save(Stop stop) {
         mongoOperations.save(stop);
     }
 
-    public void delete(String id) {
-        mongoOperations.findAndRemove(Query.query(Criteria.where("id").is(id)), Stop.class);
+    public void delete(Stop stop) {
+        mongoOperations.remove(stop);
     }
 }
