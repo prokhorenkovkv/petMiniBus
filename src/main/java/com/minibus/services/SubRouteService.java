@@ -23,6 +23,10 @@ public class SubRouteService {
         return mongoOperations.findOne(Query.query(Criteria.where("id").is(id)), SubRoute.class);
     }
 
+    public SubRoute find(SubRoute subRoute) {
+        return mongoOperations.findById(subRoute, SubRoute.class);
+    }
+
     public List<SubRoute> findByUserId(String userId) {
         return mongoOperations.find(Query.query(Criteria.where("userId").is(userId)), SubRoute.class);
     }
@@ -43,7 +47,7 @@ public class SubRouteService {
         mongoOperations.save(subRoute);
     }
 
-    public void delete(String id) {
-        mongoOperations.findAndRemove(Query.query(Criteria.where("id").is(id)), SubRoute.class);
+    public void delete(SubRoute subRoute) {
+        mongoOperations.remove(subRoute);
     }
 }

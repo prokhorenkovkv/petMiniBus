@@ -14,7 +14,6 @@ import java.util.List;
 
 @Service
 public class RouteService {
-
     @Autowired
     private MongoOperations mongoOperations;
 
@@ -24,6 +23,10 @@ public class RouteService {
 
     public Route findById(String id) {
         return mongoOperations.findOne(Query.query(Criteria.where("id").is(id)), Route.class);
+    }
+
+    public Route find(Route route) {
+        return mongoOperations.findById(route, Route.class);
     }
 
     public Route findByType(RouteType type) {
@@ -42,7 +45,7 @@ public class RouteService {
         mongoOperations.save(route);
     }
 
-    public void delete(String id) {
-        mongoOperations.findAndRemove(Query.query(Criteria.where("id").is(id)), Route.class);
+    public void delete(Route route) {
+        mongoOperations.remove(route);
     }
 }
