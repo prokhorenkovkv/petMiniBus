@@ -16,15 +16,19 @@ public class Stop {
     private String street;
     private String building;
     @DBRef
-    private City cityId;
+    private City city;
+
+    public Stop() {
+
+    }
 
     @PersistenceConstructor
-    public Stop(String id, String title, String street, String building, City cityId) {
+    public Stop(String id, String title, String street, String building, City city) {
         this.id = id;
         this.title = title;
         this.street = street;
         this.building = building;
-        this.cityId = cityId;
+        this.city = city;
     }
 
     public String getId() {
@@ -55,12 +59,12 @@ public class Stop {
         this.building = building;
     }
 
-    public City getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityId(City cityId) {
-        this.cityId = cityId;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override

@@ -29,6 +29,10 @@ public class SubRoute {
     private List<User> subscribers;
     private String isAvailable;
 
+    public SubRoute() {
+
+    }
+
     @PersistenceConstructor
     public SubRoute(String id, User userId, List<Route> routes,
                     Stop startStopId, Stop endStopId, List<WeekDay> weekDays,

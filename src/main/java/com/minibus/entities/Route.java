@@ -19,6 +19,10 @@ public class Route {
     @DBRef
     private ArrayList<Stop> stops;
 
+    public Route() {
+
+    }
+
     @PersistenceConstructor
     public Route(String id, String type, String number, ArrayList<Stop> stops) {
         this.id = id;

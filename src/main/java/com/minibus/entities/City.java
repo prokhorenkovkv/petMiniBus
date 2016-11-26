@@ -19,7 +19,9 @@ public class City {
     @DBRef
     private Country country;
 
-    public City(){}
+    public City() {
+
+    }
 
     @PersistenceConstructor
     public City(String id, String zipCode, String cityName, Country country) {
