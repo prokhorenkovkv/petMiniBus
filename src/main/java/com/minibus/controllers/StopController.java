@@ -15,7 +15,7 @@ public class StopController {
     @Autowired
     private StopService stopService;
 
-    @GetMapping(value = "/cities", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/stops", produces = MediaType.APPLICATION_JSON_VALUE)
     public
     @ResponseBody
     List<Stop> getStops() {
@@ -41,7 +41,7 @@ public class StopController {
         stopService.save(stop);
     }
 
-    @PostMapping(value = "/city/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/stop/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteStop(@RequestBody Stop stop) {
         stopService.delete(stop);

@@ -1,10 +1,11 @@
 miniBus.controller('CityController', function ($scope, $http) {
     
     $scope.submitCityForm = function () {
+        console.log($scope.selectedCountry);
         var dataObject = {
             "zipCode": $scope.zipCode,
             "cityName": $scope.cityName,
-            "country": $scope.country
+            "country": $scope.selectedCountry
         };
         if ($scope.cityId != null) {
             dataObject = angular.extend(dataObject, {"id": $scope.cityId});
@@ -42,10 +43,23 @@ miniBus.controller('CityController', function ($scope, $http) {
 
     //edit city. fill in city form
     $scope.editCity = function (city) {
+        if ($scope.countries[0] == null) {
+            $scope.countries.shift();
+        };
         $scope.cityId = city.id.toString();
         $scope.cityName = city.cityName.toString();
         $scope.zipCode = city.zipCode.toString();
-        $scope.country = city.country; //todo fix setting value
+        $scope.selectedCountry = city.country;
+        $scope.countries.unshift(null);
+        $scope.countries[$scope.getIndex($scope.countries, city.country)] = city.country;
+    };
+
+    $scope.getIndex = function (countries, selectedCountry) {
+        for(i = 1; i < countries.length; i++) {
+            if(countries[i].id == selectedCountry.id) {
+                return i;
+            };
+        };
     };
 
     //fetch all cities
@@ -79,7 +93,7 @@ miniBus.controller('CityController', function ($scope, $http) {
         $scope.cityId = null;
         $scope.cityName = null;
         $scope.zipCode = null;
-        $scope.country = null;
+        $scope.selectedCountry = null;
 
     };
 });

@@ -41,7 +41,7 @@ public class SubRouteController {
         subRouteService.save(subRoute);
     }
 
-    @PostMapping(value = "/route/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/subroute/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteSubRoute(@RequestBody SubRoute subRoute) {
         subRouteService.delete(subRoute);
