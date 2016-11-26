@@ -35,12 +35,6 @@ public class CityController {
         cityService.save(city);
     }
 
-    @PostMapping(value = "/city/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void editCity(@RequestBody City city) {
-        cityService.save(city);
-    }
-
     @PostMapping(value = "/city/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteCity(@RequestBody City city) {

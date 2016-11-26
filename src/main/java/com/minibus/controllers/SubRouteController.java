@@ -35,12 +35,6 @@ public class SubRouteController {
         subRouteService.save(subRoute);
     }
 
-    @PostMapping(value = "/subroute/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void editSubRoute(@RequestBody SubRoute subRoute) {
-        subRouteService.save(subRoute);
-    }
-
     @PostMapping(value = "/subroute/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteSubRoute(@RequestBody SubRoute subRoute) {

@@ -31,13 +31,7 @@ public class StopController {
 
     @PostMapping(value = "/stop/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveCity(@RequestBody Stop stop) {
-        stopService.save(stop);
-    }
-
-    @PostMapping(value = "/stop/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void editStop(@RequestBody Stop stop) {
+    public void saveStop(@RequestBody Stop stop) {
         stopService.save(stop);
     }
 

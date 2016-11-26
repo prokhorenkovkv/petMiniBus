@@ -35,12 +35,6 @@ public class RouteController {
         routeService.save(route);
     }
 
-    @PostMapping(value = "/route/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void editRoute(@RequestBody Route route) {
-        routeService.save(route);
-    }
-
     @PostMapping(value = "/route/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteRoute(@RequestBody Route route) {
