@@ -1,4 +1,5 @@
 'use strict';
+
 miniBus.service('CountryService', function ($http) {
     //save/update country
     this.save = function ($scope) {

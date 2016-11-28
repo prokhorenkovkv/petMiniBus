@@ -1,6 +1,8 @@
-miniBus.controller('CityController', function ($scope, $http) {
-    
-    $scope.submitCityForm = function () {
+'use strict';
+
+miniBus.service('CityService', function ($http) {
+    //save/update city
+    this.save = function ($scope) {
         var dataObject = {
             "zipCode": $scope.zipCode,
             "cityName": $scope.cityName,
@@ -20,12 +22,12 @@ miniBus.controller('CityController', function ($scope, $http) {
             }, function error() {
 
             });
-        $scope.resetCityForm();
-        $scope.getCities();
+        this.resetCityForm($scope);
+        this.getCities($scope);
     };
 
     //delete city
-    $scope.deleteCity = function (city) {
+    this.deleteCity = function ($scope, city) {
         $http({
             method: 'POST',
             url: '/city/delete',
@@ -37,32 +39,11 @@ miniBus.controller('CityController', function ($scope, $http) {
             }, function error() {
 
             });
-        $scope.getCities();
-    };
-
-    //edit city. fill in city form
-    $scope.editCity = function (city) {
-        if ($scope.countries[0] == null) {
-            $scope.countries.shift();
-        };
-        $scope.cityId = city.id.toString();
-        $scope.cityName = city.cityName.toString();
-        $scope.zipCode = city.zipCode.toString();
-        $scope.selectedCountry = city.country;
-        $scope.countries.unshift(null);
-        $scope.countries[$scope.getIndex($scope.countries, city.country)] = city.country;
-    };
-
-    $scope.getIndex = function (countries, selectedCountry) {
-        for(i = 1; i < countries.length; i++) {
-            if(countries[i].id == selectedCountry.id) {
-                return i;
-            };
-        };
+        this.getCities();
     };
 
     //fetch all cities
-    $scope.getCities = function () {
+    this.getCities = function ($scope) {
         $http({
             method: 'GET',
             url: '/cities'
@@ -74,21 +55,30 @@ miniBus.controller('CityController', function ($scope, $http) {
             });
     };
 
-    //fetch all countries
-    $scope.getCountries = function () {
-        $http({
-            method: 'GET',
-            url: '/countries'
-        })
-            .then(function success(response) {
-                $scope.countries = response.data;
-            }, function error(response) {
 
-            });
+    //edit city. fill in city form
+    this.fillInForm = function ($scope, city) {
+        if ($scope.countries[0] == null) {
+            $scope.countries.shift();
+        };
+        $scope.cityId = city.id.toString();
+        $scope.cityName = city.cityName.toString();
+        $scope.zipCode = city.zipCode.toString();
+        $scope.selectedCountry = city.country;
+        $scope.countries.unshift(null);
+        $scope.countries[this.getIndex($scope.countries, city.country)] = city.country;
     };
 
+    this.getIndex = function (countries, selectedCountry) {
+        for(var i = 1; i < countries.length; i++) {
+            if(countries[i].id == selectedCountry.id) {
+                return i;
+            };
+        };
+    };
+    
     //reset city form
-    $scope.resetCityForm = function () {
+    this.resetCityForm = function ($scope) {
         $scope.cityId = null;
         $scope.cityName = null;
         $scope.zipCode = null;
