@@ -3,7 +3,7 @@ package com.minibus.services;
 import com.minibus.entities.City;
 import com.minibus.entities.Route;
 import com.minibus.entities.Stop;
-import com.minibus.entities.enums.RouteType;
+import com.minibus.entities.RouteType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -29,8 +29,8 @@ public class RouteService {
         return mongoOperations.findById(route, Route.class);
     }
 
-    public Route findByType(RouteType type) {
-        return mongoOperations.findOne(Query.query(Criteria.where("type").is(type)), Route.class);
+    public Route findByRouteType(RouteType routeType) {
+        return mongoOperations.findOne(Query.query(Criteria.where("type").is(routeType)), Route.class);
     }
 
     public List<City> findByStop(Stop stop) {
