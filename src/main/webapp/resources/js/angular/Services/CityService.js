@@ -1,6 +1,6 @@
 'use strict';
 
-miniBus.service('CityService', function ($http) {
+miniBus.service('CityService', function ($http, GlobalService) {
     //save/update city
     this.save = function ($scope) {
         var dataObject = {
@@ -10,7 +10,7 @@ miniBus.service('CityService', function ($http) {
         };
         if ($scope.cityId != null) {
             dataObject = angular.extend(dataObject, {"id": $scope.cityId});
-        };
+        }
         $http({
             method: 'POST',
             url: '/city/save',
@@ -27,7 +27,7 @@ miniBus.service('CityService', function ($http) {
     };
 
     //delete city
-    this.deleteCity = function ($scope, city) {
+    this.delete = function ($scope, city) {
         $http({
             method: 'POST',
             url: '/city/delete',
@@ -54,29 +54,20 @@ miniBus.service('CityService', function ($http) {
 
             });
     };
-
-
+    
     //edit city. fill in city form
     this.fillInForm = function ($scope, city) {
         if ($scope.countries[0] == null) {
             $scope.countries.shift();
-        };
+        }
         $scope.cityId = city.id.toString();
         $scope.cityName = city.cityName.toString();
         $scope.zipCode = city.zipCode.toString();
         $scope.selectedCountry = city.country;
         $scope.countries.unshift(null);
-        $scope.countries[this.getIndex($scope.countries, city.country)] = city.country;
+        $scope.countries[GlobalService.getIndex($scope.countries, city.country)] = city.country;
     };
 
-    this.getIndex = function (countries, selectedCountry) {
-        for(var i = 1; i < countries.length; i++) {
-            if(countries[i].id == selectedCountry.id) {
-                return i;
-            };
-        };
-    };
-    
     //reset city form
     this.resetCityForm = function ($scope) {
         $scope.cityId = null;

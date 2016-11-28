@@ -6,7 +6,7 @@ miniBus.controller('CityController', function ($scope, $http, CityService, Count
 
     //delete city
     $scope.deleteCity = function (city) {
-        CityService.deleteCity($scope, city);
+        CityService.delete($scope, city);
     };
 
     //edit city. fill in city form
@@ -22,10 +22,5 @@ miniBus.controller('CityController', function ($scope, $http, CityService, Count
     //fetch all countries
     $scope.getCountries = function () {
         CountryService.getCountries($scope);
-    };
-
-    //reset city form
-    $scope.resetCityForm = function () {
-        CityService.resetCityForm($scope);
     };
 });

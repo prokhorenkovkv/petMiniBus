@@ -13,11 +13,13 @@
         <script src="resources/js/libs/jquery-2.2.4.min.js"></script>
         <script src="resources/js/libs/bootstrap.min.js"></script>
         <script src="resources/js/angular/main.js"></script>
+        <script src="resources/js/angular/Services/GlobalService.js"></script>
         <script src="resources/js/angular/Services/CountryService.js"></script>
         <script src="resources/js/angular/Services/CityService.js"></script>
+        <script src="resources/js/angular/Services/StopService.js"></script>
         <script src="resources/js/angular/Controllers/CountryController.js"></script>
         <script src="resources/js/angular/Controllers/CityController.js"></script>
-        <script src="resources/js/angular/StopController.js"></script>
+        <script src="resources/js/angular/Controllers/StopController.js"></script>
     </div>
 </div>
 </body>

@@ -8,7 +8,7 @@ miniBus.service('CountryService', function ($http) {
         };
         if ($scope.countryId != null) {
             dataObject = angular.extend(dataObject, {"id": $scope.countryId});
-        };
+        }
         $http({
             method: 'POST',
             url: '/country/save',
@@ -23,7 +23,7 @@ miniBus.service('CountryService', function ($http) {
         this.resetCountryForm($scope);
         this.getCountries($scope);
     };
-    
+
     //delete country
     this.delete = function ($scope, country) {
         $http({
@@ -39,7 +39,7 @@ miniBus.service('CountryService', function ($http) {
             });
         this.getCountries($scope);
     };
-    
+
     //fetch all countries
     this.getCountries = function ($scope) {
         $http({
