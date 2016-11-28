@@ -8,6 +8,49 @@
 
 <div id="body" class="col-sm-offset-3">
     <div>WRAPPER</div>
+    <%--routetype--%>
+    RouteType
+    <div ng-controller="RouteTypeController" ng-init="routeTypes=getRouteTypes()">
+        <%--routetypes list--%>
+        <div ng-repeat="routeType in routeTypes">
+            {{routeType.type}}
+            <button type="button" ng-click="editRouteType(routeType)">Edit</button>
+            <button type="button" ng-click="deleteRouteType(routeType)">Remove</button>
+        </div>
+        <br>
+        <%--routetype form--%>
+        <div>
+            <input type="hidden" ng-model="routeTypeId">
+            <input type="text" ng-model="routeType">
+            <input type="submit" ng-click="submitRouteTypeForm()">
+        </div>
+    </div>
+    <%---------------------------------------------
+    &lt;%&ndash;route&ndash;%&gt;
+    Route
+    <div ng-controller="RouteController" ng-init="routes = getRoutes(); types = getTypes()">
+        &lt;%&ndash;route list&ndash;%&gt;
+        <div ng-repeat="route in routes">
+            {{route.type}} {{route.number}} {{route.stops}}
+            <button type="button" ng-click="editRoute(route)">Edit</button>
+            <button type="button" ng-click="deleteRoute(route)">Remove</button>
+        </div>
+        <br>
+        &lt;%&ndash;stop form&ndash;%&gt;
+        <div>
+            <input type="hidden" ng-model="routeId">
+            <select ng-options="type as typefor type in types"
+                    ng-model="selectedCity">
+            </select>
+            <input type="text" ng-model="title">
+            <input type="text" ng-model="street">
+            <input type="text" ng-model="building">
+            <select ng-options="city as city.cityName for city in cities"
+                    ng-model="selectedCity">
+            </select>
+            <input type="submit" ng-click="submitStopForm()">
+        </div>
+    </div>--%>
     -------------------------------------------
     <%--stop--%>
     Stop

@@ -17,9 +17,13 @@
         <script src="resources/js/angular/Services/CountryService.js"></script>
         <script src="resources/js/angular/Services/CityService.js"></script>
         <script src="resources/js/angular/Services/StopService.js"></script>
+        <script src="resources/js/angular/Services/RouteTypeService.js"></script>
+        <script src="resources/js/angular/Services/RouteService.js"></script>
         <script src="resources/js/angular/Controllers/CountryController.js"></script>
         <script src="resources/js/angular/Controllers/CityController.js"></script>
         <script src="resources/js/angular/Controllers/StopController.js"></script>
+        <script src="resources/js/angular/Controllers/RouteTypeController.js"></script>
+        <script src="resources/js/angular/Controllers/RouteController.js"></script>
     </div>
 </div>
 </body>

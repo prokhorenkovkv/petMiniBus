@@ -18,9 +18,4 @@ miniBus.controller('CountryController', function ($scope, $http, CountryService)
     $scope.getCountries = function (){
         CountryService.getCountries($scope);
     };
-
-    //reset country form
-    $scope.resetCountryForm = function () {
-        CountryService.resetCountryForm($scope);
-    };
 });

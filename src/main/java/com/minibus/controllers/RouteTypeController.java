@@ -31,13 +31,13 @@ public class RouteTypeController {
 
     @PostMapping(value = "/routeType/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveCountry(@RequestBody RouteType routeType) {
+    public void saveRouteType(@RequestBody RouteType routeType) {
         routeTypeService.save(routeType);
     }
 
     @PostMapping(value = "/routeType/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCountry(@RequestBody RouteType routeType) {
+    public void deleteRouteType(@RequestBody RouteType routeType) {
         routeTypeService.delete(routeType);
     }
 }
