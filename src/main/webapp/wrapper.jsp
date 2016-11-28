@@ -9,17 +9,39 @@
 <div id="body" class="col-sm-offset-3">
     <div>WRAPPER</div>
     -------------------------------------------
+    <%--stop--%>
+    Stop
+    <div ng-controller="StopController" ng-init="stops = getStops(); cities = getCities()">
+        <%--stop list--%>
+        <div ng-repeat="stop in stops">
+            {{stop.title}} {{stop.street}} {{stop.building}} {{stop.city.cityName}}
+            <button type="button" ng-click="editStop(stop)">Edit</button>
+            <button type="button" ng-click="deleteStop(stop)">Remove</button>
+        </div>
+        <br>
+        <%--stop form--%>
+        <div>
+            <input type="hidden" ng-model="stopId">
+            <input type="text" ng-model="title">
+            <input type="text" ng-model="street">
+            <input type="text" ng-model="building">
+            <select ng-options="city as city.cityName for city in cities"
+                    ng-model="selectedCity">
+            </select>
+            <input type="submit" ng-click="submitStopForm()">
+        </div>
+    </div>
+    -------------------------------------------
     <%--city--%>
+    City
     <div ng-controller="CityController" ng-init="countries = getCountries(); cities = getCities()">
         <%--city list--%>
-        <div ng-init="cities = getCities()">
-            <div ng-repeat="city in cities">
-                {{city.cityName}} {{city.zipCode}} {{city.country.countryName}}
-                <button type="button" ng-click="editCity(city)">Edit</button>
-                <button type="button" ng-click="deleteCity(city)">Remove</button>
-            </div>
-            <br>
+        <div ng-repeat="city in cities">
+            {{city.cityName}} {{city.zipCode}} {{city.country.countryName}}
+            <button type="button" ng-click="editCity(city)">Edit</button>
+            <button type="button" ng-click="deleteCity(city)">Remove</button>
         </div>
+        <br>
         <%--city form--%>
         <div>
             <input type="hidden" ng-model="cityId">
@@ -28,27 +50,20 @@
             <select ng-options="country as country.countryName for country in countries"
                     ng-model="selectedCountry">
             </select>
-            <%--<select ng-model="selectedCountry">
-                <option ng-repeat="country in countries" ng-selected="country==selectedCountry" ng-value="{{country}}">
-                    {{country.countryName}}
-                </option>
-            </select>--%>
             <input type="submit" ng-click="submitCityForm()">
         </div>
-
     </div>
     -------------------------------------------
     <%--country--%>
-    <div ng-controller="CountryController">
+    Country
+    <div ng-controller="CountryController" ng-init="countries = getCountries()">
         <%--countries list--%>
-        <div ng-init="countries = getCountries()">
-            <div ng-repeat="country in countries">
-                {{country.countryName}}
-                <button type="button" ng-click="editCountry(country)">Edit</button>
-                <button type="button" ng-click="deleteCountry(country)">Remove</button>
-            </div>
-            <br>
+        <div ng-repeat="country in countries">
+            {{country.countryName}}
+            <button type="button" ng-click="editCountry(country)">Edit</button>
+            <button type="button" ng-click="deleteCountry(country)">Remove</button>
         </div>
+        <br>
         <%--country form--%>
         <div>
             <input type="hidden" ng-model="countryId">

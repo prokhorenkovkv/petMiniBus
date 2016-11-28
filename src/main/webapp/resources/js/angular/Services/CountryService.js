@@ -1,6 +1,7 @@
-miniBus.controller('CountryController', function ($scope, $http) {
+'use strict';
+miniBus.service('CountryService', function ($http) {
     //save/update country
-    $scope.submitCountryForm = function () {
+    this.save = function ($scope) {
         var dataObject = {
             "countryName": $scope.countryName
         };
@@ -18,12 +19,12 @@ miniBus.controller('CountryController', function ($scope, $http) {
             }, function error() {
 
             });
-        $scope.resetCountryForm();
-        $scope.getCountries();
+        this.resetCountryForm($scope);
+        this.getCountries($scope);
     };
-
+    
     //delete country
-    $scope.deleteCountry = function (country) {
+    this.delete = function ($scope, country) {
         $http({
             method: 'POST',
             url: '/country/delete',
@@ -35,17 +36,11 @@ miniBus.controller('CountryController', function ($scope, $http) {
             }, function error() {
 
             });
-        $scope.getCountries();
+        this.getCountries($scope);
     };
-
-    //edit country. fill in country form
-    $scope.editCountry = function (country) {
-        $scope.countryName = country.countryName.toString();
-        $scope.countryId = country.id.toString();
-    };
-
+    
     //fetch all countries
-    $scope.getCountries = function () {
+    this.getCountries = function ($scope) {
         $http({
             method: 'GET',
             url: '/countries'
@@ -53,11 +48,18 @@ miniBus.controller('CountryController', function ($scope, $http) {
             .then(function success(response) {
                 $scope.countries = response.data;
             }, function error() {
-
+                console.error('Error while fetching countries');
             });
     };
+
+    //edit country. fill in country form
+    this.fillInForm = function ($scope, country) {
+        $scope.countryName = country.countryName.toString();
+        $scope.countryId = country.id.toString();
+    };
+
     //reset country form
-    $scope.resetCountryForm = function () {
+    this.resetCountryForm = function ($scope) {
         $scope.countryId = null;
         $scope.countryName = null;
     };

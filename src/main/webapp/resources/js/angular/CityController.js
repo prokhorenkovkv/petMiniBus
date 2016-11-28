@@ -1,7 +1,6 @@
 miniBus.controller('CityController', function ($scope, $http) {
     
     $scope.submitCityForm = function () {
-        console.log($scope.selectedCountry);
         var dataObject = {
             "zipCode": $scope.zipCode,
             "cityName": $scope.cityName,
@@ -94,6 +93,5 @@ miniBus.controller('CityController', function ($scope, $http) {
         $scope.cityName = null;
         $scope.zipCode = null;
         $scope.selectedCountry = null;
-
     };
 });

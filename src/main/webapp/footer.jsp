@@ -13,8 +13,10 @@
         <script src="resources/js/libs/jquery-2.2.4.min.js"></script>
         <script src="resources/js/libs/bootstrap.min.js"></script>
         <script src="resources/js/angular/main.js"></script>
-        <script src="resources/js/angular/CountryController.js"></script>
+        <script src="resources/js/angular/Services/CountryService.js"></script>
+        <script src="resources/js/angular/Controllers/CountryController.js"></script>
         <script src="resources/js/angular/CityController.js"></script>
+        <script src="resources/js/angular/StopController.js"></script>
     </div>
 </div>
 </body>
