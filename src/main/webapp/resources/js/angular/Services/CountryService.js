@@ -1,67 +1,58 @@
 'use strict';
 
-miniBus.service('CountryService', function ($http) {
+miniBus.service('CountryService', function ($http, $q, $log) {
+
+    //fetch all countries
+    this.getCountries = function ($scope) {
+        var deferred = $q.defer();
+        $http({
+            method: 'GET',
+            url: '/countries'
+        })
+            .then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                $log.error('Error while running CountryService.getCountries() with status: ' + response.status);
+                deferred.reject(response);
+            });
+        return deferred.promise;
+    };
+    
     //save/update country
-    this.save = function ($scope) {
-        var dataObject = {
-            "countryName": $scope.countryName
-        };
-        if ($scope.countryId != null) {
-            dataObject = angular.extend(dataObject, {"id": $scope.countryId});
-        }
+    this.save = function (country) {
+        var deferred = $q.defer();
         $http({
             method: 'POST',
             url: '/country/save',
-            data: JSON.stringify(dataObject),
+            data: JSON.stringify(country),
             headers: {'Content-Type': 'application/json'}
         })
-            .then(function success() {
-
-            }, function error() {
-
+            .then(function (response) {
+                $log.info('Country saved');
+                deferred.resolve(response);
+            }, function (response) {
+                $log.error('Error while running CountryService.save() with status: ' + response.status);
+                deferred.reject(response);
             });
-        this.resetCountryForm($scope);
-        this.getCountries($scope);
+        return deferred.promise;
     };
 
     //delete country
-    this.delete = function ($scope, country) {
+    this.delete = function (country) {
+        var deferred = $q.defer();
         $http({
             method: 'POST',
             url: '/country/delete',
             data: JSON.stringify(country),
             headers: {'Content-Type': 'application/json'}
         })
-            .then(function success() {
-
-            }, function error() {
-
+            .then(function (response) {
+                $log.info('Country deleted');
+                deferred.resolve(response);
+            }, function (response) {
+                $log.error('Error while running CountryService.delete() with status: ' + response.status);
+                deferred.reject(response);
             });
-        this.getCountries($scope);
-    };
-
-    //fetch all countries
-    this.getCountries = function ($scope) {
-        $http({
-            method: 'GET',
-            url: '/countries'
-        })
-            .then(function success(response) {
-                $scope.countries = response.data;
-            }, function error() {
-                console.error('Error while fetching countries');
-            });
-    };
-
-    //edit country. fill in country form
-    this.fillInForm = function ($scope, country) {
-        $scope.countryName = country.countryName.toString();
-        $scope.countryId = country.id.toString();
-    };
-
-    //reset country form
-    this.resetCountryForm = function ($scope) {
-        $scope.countryId = null;
-        $scope.countryName = null;
+        return deferred.promise;
     };
 });

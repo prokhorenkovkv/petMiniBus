@@ -1,21 +1,48 @@
-miniBus.controller('CountryController', function ($scope, $http, CountryService) {
-    //save/update country
-    $scope.submitCountryForm = function () {
-        CountryService.save($scope);
+miniBus.controller('CountryController', function ($scope, $http, $log, CountryService) {
+
+    var country = {"id": $scope.countryId, "countryName": $scope.countryName};
+
+    //fetch all countries
+    $scope.getCountries = function () {
+        CountryService.getCountries($scope)
+            .then(
+                function (response) {
+                    $scope.countries = response;
+                });
     };
 
-    //edit country. fill in country form
-    $scope.editCountry = function (country) {
-        CountryService.fillInForm($scope, country);
+    //save/update country
+    $scope.submitCountryForm = function () {
+        CountryService.save(
+            {
+                "id": $scope.countryId,
+                "countryName": $scope.countryName
+            }
+        ).then(
+            function () {
+                $scope.getCountries();
+                $scope.resetCountryForm();
+            });
     };
 
     //delete country
     $scope.deleteCountry = function (country) {
-        CountryService.delete($scope, country);
+        CountryService.delete(country)
+            .then(
+                function () {
+                    $scope.getCountries();
+                });
     };
 
-    //fetch all countries
-    $scope.getCountries = function (){
-        CountryService.getCountries($scope);
+    //edit country. fill in country form
+    $scope.editCountry = function (country) {
+        $scope.countryId = country.id.toString();
+        $scope.countryName = country.countryName.toString();
+    };
+
+    //reset country form
+    $scope.resetCountryForm = function () {
+        $scope.countryId = null;
+        $scope.countryName = null;
     };
 });
