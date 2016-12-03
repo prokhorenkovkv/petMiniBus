@@ -1,7 +1,5 @@
 miniBus.controller('CountryController', function ($scope, $http, $log, CountryService) {
 
-    var country = {"id": $scope.countryId, "countryName": $scope.countryName};
-
     //fetch all countries
     $scope.getCountries = function () {
         CountryService.getCountries($scope)
@@ -18,11 +16,12 @@ miniBus.controller('CountryController', function ($scope, $http, $log, CountrySe
                 "id": $scope.countryId,
                 "countryName": $scope.countryName
             }
-        ).then(
-            function () {
-                $scope.getCountries();
-                $scope.resetCountryForm();
-            });
+        )
+            .then(
+                function () {
+                    $scope.getCountries();
+                    $scope.resetCountryForm();
+                });
     };
 
     //delete country

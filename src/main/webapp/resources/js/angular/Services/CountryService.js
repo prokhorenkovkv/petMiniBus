@@ -3,7 +3,7 @@
 miniBus.service('CountryService', function ($http, $q, $log) {
 
     //fetch all countries
-    this.getCountries = function ($scope) {
+    this.getCountries = function () {
         var deferred = $q.defer();
         $http({
             method: 'GET',
