@@ -1,4 +1,4 @@
-miniBus.controller('CountryController', function ($scope, $http, $log, CountryService) {
+miniBus.controller('CountryController', function ($scope, $http, CountryService) {
 
     //fetch all countries
     $scope.getCountries = function () {

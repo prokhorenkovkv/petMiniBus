@@ -1,66 +1,58 @@
 'use strict';
 
-miniBus.service('RouteTypeService', function ($http) {
-    //save/update routetype
-    this.save = function ($scope) {
-        var dataObject = {
-            "type": $scope.routeType
-        };
-        if ($scope.routeTypeId != null) {
-            dataObject = angular.extend(dataObject, {"id": $scope.routeTypeId});
-        }
-        $http({
-            method: 'POST',
-            url: '/routeType/save',
-            data: JSON.stringify(dataObject),
-            headers: {'Content-Type': 'application/json'}
-        })
-            .then(function success() {
-
-            }, function error() {
-
-            });
-        this.resetRouteTypeForm($scope);
-        this.getRouteTypes($scope);
-    };
-    //delete routetype
-    this.delete = function ($scope, country) {
-        $http({
-            method: 'POST',
-            url: '/routeType/delete',
-            data: JSON.stringify(country),
-            headers: {'Content-Type': 'application/json'}
-        })
-            .then(function success() {
-
-            }, function error() {
-
-            });
-        this.getRouteTypes($scope);
-    };
+miniBus.service('RouteTypeService', function ($http, $q, $log) {
 
     //fetch all routetypes
-    this.getRouteTypes = function ($scope) {
+    this.getRouteTypes = function () {
+        var deferred = $q.defer();
         $http({
             method: 'GET',
             url: '/routeTypes'
         })
-            .then(function success(response) {
-                $scope.routeTypes = response.data;
-            }, function error() {
-                console.error('Error while fetching route types');
+            .then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                $log.error('Error fetching route types with status: ' + response.status);
+                deferred.reject(response);
             });
+        return deferred.promise;
     };
 
-    //edit routetype. fill in routetype form
-    this.fillInForm = function ($scope, routeType) {
-        $scope.routeType = routeType.type.toString();
-        $scope.routeTypeId = routeType.id.toString();
+    //save/update routetype
+    this.save = function (routeType) {
+        var deferred = $q.defer();
+        $http({
+            method: 'POST',
+            url: '/routeType/save',
+            data: JSON.stringify(routeType),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(function (response) {
+                $log.info('Route type saved');
+                deferred.resolve(response);
+            }, function (response) {
+                $log.error('Error saving route type with status: ' + response.status);
+                deferred.reject(response);
+            });
+        return deferred.promise;
     };
 
-    //reset routetype form
-    this.resetRouteTypeForm = function ($scope) {
-        $scope.routeTypeId = null;
-        $scope.routeType = null;
+    //delete routetype
+    this.delete = function (routeType) {
+        var deferred = $q.defer();
+        $http({
+            method: 'POST',
+            url: '/routeType/delete',
+            data: JSON.stringify(routeType),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(function (response) {
+                $log.info('Route type deleted');
+                deferred.resolve(response);
+            }, function (response) {
+                $log.error('Error deleting route type with status: ' + response.status);
+                deferred.reject(response);
+            });
+        return deferred.promise;
     };
 });
