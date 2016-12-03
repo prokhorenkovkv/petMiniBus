@@ -12,7 +12,7 @@ miniBus.service('CountryService', function ($http, $q, $log) {
             .then(function (response) {
                 deferred.resolve(response.data);
             }, function (response) {
-                $log.error('Error while running CountryService.getCountries() with status: ' + response.status);
+                $log.error('Error fetching countries with status: ' + response.status);
                 deferred.reject(response);
             });
         return deferred.promise;
@@ -31,7 +31,7 @@ miniBus.service('CountryService', function ($http, $q, $log) {
                 $log.info('Country saved');
                 deferred.resolve(response);
             }, function (response) {
-                $log.error('Error while running CountryService.save() with status: ' + response.status);
+                $log.error('Error saving country with status: ' + response.status);
                 deferred.reject(response);
             });
         return deferred.promise;
@@ -50,7 +50,7 @@ miniBus.service('CountryService', function ($http, $q, $log) {
                 $log.info('Country deleted');
                 deferred.resolve(response);
             }, function (response) {
-                $log.error('Error while running CountryService.delete() with status: ' + response.status);
+                $log.error('Error deleting country with status: ' + response.status);
                 deferred.reject(response);
             });
         return deferred.promise;

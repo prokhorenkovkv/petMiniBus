@@ -12,7 +12,7 @@ miniBus.service('CityService', function ($http, $q, $log) {
             .then(function (response) {
                 deferred.resolve(response.data);
             }, function (response) {
-                $log.error('Error while running CityService.getCities() with status: ' + response.status);
+                $log.error('Error fetching cities with status: ' + response.status);
                 deferred.reject(response);
             });
         return deferred.promise;
@@ -31,7 +31,7 @@ miniBus.service('CityService', function ($http, $q, $log) {
                 $log.info('City saved');
                 deferred.resolve(response);
             }, function (response) {
-                $log.error('Error while running CityService.save() with status: ' + response.status);
+                $log.error('Error saving city with status: ' + response.status);
                 deferred.reject(response);
             });
         return deferred.promise;
@@ -50,7 +50,7 @@ miniBus.service('CityService', function ($http, $q, $log) {
                 $log.info('City deleted');
                 deferred.resolve(response);
             }, function (response) {
-                $log.error('Error while running CityService.delete() with status: ' + response.status);
+                $log.error('Error deleting city with status: ' + response.status);
                 deferred.reject(response);
             });
         return deferred.promise;
