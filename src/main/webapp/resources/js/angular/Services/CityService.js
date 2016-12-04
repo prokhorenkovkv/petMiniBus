@@ -41,7 +41,7 @@ miniBus.service('CityService', function ($http, $q, $log) {
     this.delete = function (city) {
         var deferred = $q.defer();
         $http({
-            method: 'POST',
+            method: 'DELETE',
             url: '/city/delete',
             data: JSON.stringify(city),
             headers: {'Content-Type': 'application/json'}

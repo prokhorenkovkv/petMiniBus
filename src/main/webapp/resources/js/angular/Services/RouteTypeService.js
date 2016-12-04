@@ -41,7 +41,7 @@ miniBus.service('RouteTypeService', function ($http, $q, $log) {
     this.delete = function (routeType) {
         var deferred = $q.defer();
         $http({
-            method: 'POST',
+            method: 'DELETE',
             url: '/routeType/delete',
             data: JSON.stringify(routeType),
             headers: {'Content-Type': 'application/json'}
