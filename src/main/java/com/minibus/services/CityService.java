@@ -1,6 +1,7 @@
 package com.minibus.services;
 
 import com.minibus.entities.City;
+import com.minibus.entities.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -35,8 +36,8 @@ public class CityService {
         return mongoOperations.find(Query.query(Criteria.where("cityName").is(cityName)), City.class);
     }
 
-    public List<City> findByCountryId(String countryId) {
-        return mongoOperations.find(Query.query(Criteria.where("countryId").is(countryId)), City.class);
+    public List<City> findByCountry(Country country) {
+        return mongoOperations.find(Query.query(Criteria.where("country").is(country)), City.class);
     }
 
     public void save(City city) {

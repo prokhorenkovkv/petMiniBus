@@ -17,6 +17,23 @@ miniBus.service('CityService', function ($http, $q, $log) {
             });
         return deferred.promise;
     };
+    
+    this.getCitiesByCountry = function (country) {
+        var deferred = $q.defer();
+        $http({
+            method: 'POST',
+            url: '/citiesByCountry',
+            data: JSON.stringify(country),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                $log.error('Error fetching cities by country with status: ' + response.status);
+                deferred.reject(response);
+            });
+        return deferred.promise;
+    };
 
     //save/update city
     this.save = function (city) {

@@ -1,6 +1,7 @@
 package com.minibus.controllers;
 
 import com.minibus.entities.City;
+import com.minibus.entities.Country;
 import com.minibus.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +22,11 @@ public class CityController {
     @GetMapping(value = "/city", produces = MediaType.APPLICATION_JSON_VALUE)
     public City getCity(@RequestBody City city) {
         return cityService.find(city);
+    }
+
+    @PostMapping(value = "/citiesByCountry", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<City> getCitiesByCountry(@RequestBody Country country) {
+        return cityService.findByCountry(country);
     }
 
     @PostMapping(value = "/city/save", consumes = MediaType.APPLICATION_JSON_VALUE)

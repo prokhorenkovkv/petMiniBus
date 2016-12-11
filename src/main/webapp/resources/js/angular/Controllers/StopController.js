@@ -1,5 +1,9 @@
-miniBus.controller('StopController', function ($scope, $http, StopService, CityService, GlobalService) {
-
+miniBus.controller('StopController', function ($scope,
+                                               $http,
+                                               StopService,
+                                               CityService,
+                                               CountryService,
+                                               GlobalService) {
     //fetch all stops
     $scope.getStops = function () {
         StopService.getStops($scope)
@@ -38,12 +42,23 @@ miniBus.controller('StopController', function ($scope, $http, StopService, CityS
 
     //edit stop. fill in stop form
     $scope.editStop = function (stop) {
-        $scope.stopId = stop.id.toString();
-        $scope.title = stop.title.toString();
-        $scope.street = stop.street.toString();
-        $scope.building = stop.building.toString();
-        $scope.selectedCity = stop.city;
-        $scope.cities[GlobalService.getIndex($scope.cities, stop.city)] = stop.city;
+        var country = stop.city.country;
+        var city = stop.city;
+        CityService.getCitiesByCountry(country)
+            .then(
+                function (response) {
+                    $scope.stopId = stop.id.toString();
+                    $scope.title = stop.title.toString();
+                    $scope.street = stop.street.toString();
+                    $scope.building = stop.building.toString();
+                    
+                    $scope.selectedCountry = country;
+                    $scope.countries[GlobalService.getIndex($scope.countries, country)] = country;
+
+                    $scope.cities = response;
+                    $scope.selectedCity = city;
+                    $scope.cities[GlobalService.getIndex($scope.cities, city)] = city;
+                });
     };
 
     //reset stop form
@@ -53,11 +68,21 @@ miniBus.controller('StopController', function ($scope, $http, StopService, CityS
         $scope.street = null;
         $scope.building = null;
         $scope.selectedCity = null;
+        $scope.selectedCountry = null;
     };
 
-    //fetch all cities
-    $scope.getCities = function () {
-        CityService.getCities($scope)
+    //fetch all countries
+    $scope.getCountries = function () {
+        CountryService.getCountries($scope)
+            .then(
+                function (response) {
+                    $scope.countries = response;
+                });
+    };
+
+    //fetch cities by country
+    $scope.getCitiesByCountry = function () {
+        CityService.getCitiesByCountry($scope.selectedCountry)
             .then(
                 function (response) {
                     $scope.cities = response;
