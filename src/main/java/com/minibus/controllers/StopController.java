@@ -1,5 +1,6 @@
 package com.minibus.controllers;
 
+import com.minibus.entities.City;
 import com.minibus.entities.Stop;
 import com.minibus.services.StopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class StopController {
     @GetMapping(value = "/stop", produces = MediaType.APPLICATION_JSON_VALUE)
     public Stop getStop(@RequestBody Stop stop) {
         return stopService.find(stop);
+    }
+
+    @PostMapping(value = "stopsByCity", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Stop> getStopsByCity(@RequestBody City city) {
+        return stopService.findByCity(city);
     }
 
     @PostMapping(value = "/stop/save", consumes = MediaType.APPLICATION_JSON_VALUE)

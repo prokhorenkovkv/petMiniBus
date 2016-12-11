@@ -1,5 +1,6 @@
 package com.minibus.services;
 
+import com.minibus.entities.City;
 import com.minibus.entities.Stop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -31,8 +32,8 @@ public class StopService {
         return mongoOperations.find(Query.query(Criteria.where("street").is(street)), Stop.class);
     }
 
-    public List<Stop> findByCityId(String cityId) {
-        return mongoOperations.find(Query.query(Criteria.where("cityId").is(cityId)), Stop.class);
+    public List<Stop> findByCity(City city) {
+        return mongoOperations.find(Query.query(Criteria.where("city").is(city)), Stop.class);
     }
 
     public void save(Stop stop) {
