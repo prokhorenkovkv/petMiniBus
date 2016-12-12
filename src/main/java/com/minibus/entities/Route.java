@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Route {
     @Id
     private String id;
-    private String type;
+    @DBRef
+    private RouteType routeType;
     private String number;
     @DBRef
     private ArrayList<Stop> stops;
@@ -24,9 +25,9 @@ public class Route {
     }
 
     @PersistenceConstructor
-    public Route(String id, String type, String number, ArrayList<Stop> stops) {
+    public Route(String id, RouteType routeType, String number, ArrayList<Stop> stops) {
         this.id = id;
-        this.type = type;
+        this.routeType = routeType;
         this.number = number;
         this.stops = stops;
     }
@@ -35,12 +36,12 @@ public class Route {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public RouteType getRouteType() {
+        return routeType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRouteType(RouteType routeType) {
+        this.routeType = routeType;
     }
 
     public String getNumber() {
@@ -80,7 +81,7 @@ public class Route {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("type", type)
+                .append("routeType", routeType)
                 .append("number", number)
                 .toString();
     }

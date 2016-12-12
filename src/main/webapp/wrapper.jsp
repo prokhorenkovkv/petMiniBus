@@ -8,51 +8,66 @@
 
 <div id="body" class="col-sm-offset-3">
     <div>WRAPPER</div>
-    <%---------------------------------------------
-    &lt;%&ndash;route&ndash;%&gt;
+    -------------------------------------------
+    <%--route--%>
     Route
-    <div ng-controller="RouteController" ng-init="routes = getRoutes(); routeTypes = getRouteTypes(); countries = getCountries()">
-        &lt;%&ndash;route list&ndash;%&gt;
+    <div ng-controller="RouteController"
+         ng-init="routes = getRoutes();
+            routeTypes = getRouteTypes();
+            countries = getCountries();
+            stopsInRoute = []">
+        <%--route list--%>
         <div ng-repeat="route in routes">
-            {{route.type}} {{route.number}} {{route.stops}}
+            {{route.routeType.type}}
+            {{route.number}}
+            {{route.stops[0].title}} - {{route.stops[route.stops.length - 1].title}}
             <button type="button" ng-click="editRoute(route)">Edit</button>
             <button type="button" ng-click="deleteRoute(route)">Remove</button>
         </div>
         <br>
-        &lt;%&ndash;route form&ndash;%&gt;
+        <%--route form--%>
         <div>
             <input type="hidden" ng-model="routeId">
             <select ng-options="routeType as routeType.type for routeType in routeTypes"
                     ng-model="selectedRouteType">
             </select>
             <select ng-options="country as country.countryName for country in countries"
-                    ng-model="selectedCountry">
+                    ng-model="selectedCountry" ng-change="getCitiesByCountry()">
+            </select>
+            <select ng-options="city as city.cityName for city in cities"
+                    ng-model="selectedCity" ng-change="getStopsByCity()">
             </select>
             <input type="text" ng-model="number">
-            &lt;%&ndash;<input type="checkbox" ng-model="checkboxModel.value2"
-                   ng-true-value="'YES'" ng-false-value="'NO'">&ndash;%&gt;
+            <select ng-options="stop as stop.title for stop in stops"
+                    ng-model="selectedStop">
+            </select>
+            <input type="button" value="Add" ng-click="addStopToRoute()"/>
+            <div ng-repeat="stopInRoute in stopsInRoute">{{$index + 1}} {{stopInRoute.title}}
+                <input type="button" value="Delete from route" ng-click="deleteStopFromRoute($index)"/>
+            </div>
             <input type="submit" ng-click="submitRouteForm()">
+
         </div>
-    </div>--%>
-    <%---------------------------------------------
-    &lt;%&ndash;routetype&ndash;%&gt;
+    </div>
+    -------------------------------------------
+    <%--routetype--%>
     RouteType
     <div ng-controller="RouteTypeController" ng-init="routeTypes=getRouteTypes()">
-        &lt;%&ndash;routetypes list&ndash;%&gt;
+        <%--routetypes list--%>
         <div ng-repeat="routeType in routeTypes">
             {{routeType.type}}
             <button type="button" ng-click="editRouteType(routeType)">Edit</button>
             <button type="button" ng-click="deleteRouteType(routeType)">Remove</button>
         </div>
         <br>
-        &lt;%&ndash;routetype form&ndash;%&gt;
+        <%--routetype form--%>
         <div>
             <input type="hidden" ng-model="routeTypeId">
             <input type="text" ng-model="routeType">
             <input type="submit" ng-click="submitRouteTypeForm()">
         </div>
-    </div>--%>
-        -------------------------------------------
+    </div>
+    -------------------------------------------
     <%--stop--%>
     Stop
     <div ng-controller="StopController" ng-init="stops = getStops(); countries = getCountries()">

@@ -18,6 +18,24 @@ miniBus.service('StopService', function ($http, $q, $log) {
         return deferred.promise;
     };
 
+    //fetch stops by city
+    this.getStopsByCity = function (city) {
+        var deferred = $q.defer();
+        $http({
+            method: 'POST',
+            url: '/stopsByCity',
+            data: JSON.stringify(city),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                $log.error('Error fetching stops by city with status: ' + response.status);
+                deferred.reject(response);
+            });
+        return deferred.promise;
+    };
+
     //save/update stop
     this.save = function (stop) {
         var deferred = $q.defer();

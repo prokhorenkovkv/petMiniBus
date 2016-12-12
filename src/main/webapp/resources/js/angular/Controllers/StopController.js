@@ -67,8 +67,9 @@ miniBus.controller('StopController', function ($scope,
         $scope.title = null;
         $scope.street = null;
         $scope.building = null;
-        $scope.selectedCity = null;
         $scope.selectedCountry = null;
+        $scope.cities = null;
+        $scope.selectedCity = null;
     };
 
     //fetch all countries
