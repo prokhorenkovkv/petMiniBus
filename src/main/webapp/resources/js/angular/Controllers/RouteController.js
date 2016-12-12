@@ -4,7 +4,8 @@ miniBus.controller('RouteController', function ($scope,
                                                 RouteTypeService,
                                                 CountryService,
                                                 CityService,
-                                                StopService) {
+                                                StopService,
+                                                GlobalService) {
 
     //fetch all routes
     $scope.getRoutes = function () {
@@ -43,12 +44,36 @@ miniBus.controller('RouteController', function ($scope,
 
     //edit route. fill in route form
     $scope.editRoute = function (route) {
-        /*TODO: do this*/
+        var country = route.stops[0].city.country;
+        var city = route.stops[0].city;
+        var type = route.routeType;
+
+        $scope.routeId = route.id;
+        $scope.selectedRouteType = type;
+        $scope.routeTypes[GlobalService.getIndex($scope.routeTypes, type)] = type;
+        $scope.selectedCountry = country;
+        $scope.countries[GlobalService.getIndex($scope.countries, country)] = country;
+        $scope.number = route.number;
+
+        CityService.getCitiesByCountry(country)
+            .then(
+                function (response) {
+                    $scope.cities = response;
+                    $scope.selectedCity = city;
+                    $scope.cities[GlobalService.getIndex($scope.cities, city)] = city;
+                    StopService.getStopsByCity(city)
+                        .then(
+                            function (response) {
+                                $scope.stops = response;
+                            });
+                    $scope.stopsInRoute = route.stops;
+                });
+        
     };
 
     //reset route form
     $scope.resetRouteForm = function () {
-        $scope.routeId = null;
+
         $scope.selectedRouteType = null;
         $scope.selectedCountry = null;
         $scope.cities = null;
