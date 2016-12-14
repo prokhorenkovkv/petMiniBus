@@ -1,3 +1,5 @@
+'use strict';
+
 miniBus.controller('StopController', function ($scope,
                                                $http,
                                                StopService,
@@ -6,7 +8,7 @@ miniBus.controller('StopController', function ($scope,
                                                GlobalService) {
     //fetch all stops
     $scope.getStops = function () {
-        StopService.getStops($scope)
+        StopService.getStops()
             .then(
                 function (response) {
                     $scope.stops = response;
@@ -74,7 +76,7 @@ miniBus.controller('StopController', function ($scope,
 
     //fetch all countries
     $scope.getCountries = function () {
-        CountryService.getCountries($scope)
+        CountryService.getCountries()
             .then(
                 function (response) {
                     $scope.countries = response;

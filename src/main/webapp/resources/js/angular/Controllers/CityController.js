@@ -1,8 +1,10 @@
+'use strict';
+
 miniBus.controller('CityController', function ($scope, $http, CityService, CountryService, GlobalService) {
 
     //fetch all cities
     $scope.getCities = function () {
-        CityService.getCities($scope)
+        CityService.getCities()
             .then(
                 function (response) {
                     $scope.cities = response;
@@ -54,7 +56,7 @@ miniBus.controller('CityController', function ($scope, $http, CityService, Count
 
     //fetch all countries
     $scope.getCountries = function () {
-        CountryService.getCountries($scope)
+        CountryService.getCountries()
             .then(
                 function (response) {
                     $scope.countries = response;

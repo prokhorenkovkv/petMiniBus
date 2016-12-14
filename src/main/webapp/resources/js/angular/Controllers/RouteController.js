@@ -1,3 +1,5 @@
+'use strict';
+
 miniBus.controller('RouteController', function ($scope,
                                                 $http,
                                                 RouteService,
@@ -9,7 +11,7 @@ miniBus.controller('RouteController', function ($scope,
 
     //fetch all routes
     $scope.getRoutes = function () {
-        RouteService.getRoutes($scope)
+        RouteService.getRoutes()
             .then(
                 function (response) {
                     $scope.routes = response;
@@ -86,7 +88,7 @@ miniBus.controller('RouteController', function ($scope,
 
     //fetch all route types
     $scope.getRouteTypes = function () {
-        RouteTypeService.getRouteTypes($scope)
+        RouteTypeService.getRouteTypes()
             .then(
                 function (response) {
                     $scope.routeTypes = response;
@@ -95,7 +97,7 @@ miniBus.controller('RouteController', function ($scope,
 
     //fetch all countries
     $scope.getCountries = function () {
-        CountryService.getCountries($scope)
+        CountryService.getCountries()
             .then(
                 function (response) {
                     $scope.countries = response;

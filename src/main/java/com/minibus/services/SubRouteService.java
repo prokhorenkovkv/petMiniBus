@@ -27,11 +27,7 @@ public class SubRouteService {
         return mongoOperations.findById(subRoute, SubRoute.class);
     }
 
-    public List<SubRoute> findByUserId(String userId) {
-        return mongoOperations.find(Query.query(Criteria.where("userId").is(userId)), SubRoute.class);
-    }
-
-    public List<SubRoute> findByRoute(String cityId) {
+    /*public List<SubRoute> findByRoute(String cityId) {
         return mongoOperations.find(Query.query(Criteria.where("countryId").is(cityId)), SubRoute.class);
     }
 
@@ -41,7 +37,7 @@ public class SubRouteService {
 
     public List<SubRoute> findByEndStopId(String endStopId) {
         return mongoOperations.find(Query.query(Criteria.where("endStopId").is(endStopId)), SubRoute.class);
-    }
+    }*/
 
     public void save(SubRoute subRoute) {
         mongoOperations.save(subRoute);

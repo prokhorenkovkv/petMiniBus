@@ -5,33 +5,36 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection="users")
 public class User {
     @Id
     private String id;
     private String firstName;
-    private String lastName;
+    private List<SubRoute> subRoutes;
+    /*private String lastName;
     @Indexed(unique = true)
     private String phone;
     @Indexed(unique = true)
     private String email;
-    private String password;
+    private String password;*/
 
     public User() {
 
     }
 
     @PersistenceConstructor
-    public User(String id, String firstName, String lastName, String phone, String email, String password) {
+    public User(String id, String firstName, List<SubRoute> subRoutes/*, String lastName, String phone, String email, String password*/) {
         this.id = id;
         this.firstName = firstName;
-        this.lastName = lastName;
+        this.subRoutes = subRoutes;
+        /*this.lastName = lastName;
         this.phone = phone;
         this.email = email;
-        this.password = password;
+        this.password = password;*/
     }
 
     public String getId() {
@@ -46,7 +49,15 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public List<SubRoute> getSubRoutes() {
+        return subRoutes;
+    }
+
+    public void setSubRoutes(List<SubRoute> subRoutes) {
+        this.subRoutes = subRoutes;
+    }
+
+    /*public String getLastName() {
         return lastName;
     }
 
@@ -76,7 +87,7 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -100,9 +111,9 @@ public class User {
         return new ToStringBuilder(this)
                 .append("id", id)
                 .append("firstName", firstName)
-                .append("lastName", lastName)
+                /*.append("lastName", lastName)
                 .append("phone", phone)
-                .append("email", email)
+                .append("email", email)*/
                 .toString();
     }
 }

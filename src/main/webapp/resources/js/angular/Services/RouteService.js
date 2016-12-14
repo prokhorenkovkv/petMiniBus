@@ -37,7 +37,7 @@ miniBus.service('RouteService', function ($http, $q, $log) {
         return deferred.promise;
     };
 
-    //delete stop
+    //delete route
     this.delete = function (route) {
         var deferred = $q.defer();
         $http({
@@ -52,6 +52,23 @@ miniBus.service('RouteService', function ($http, $q, $log) {
             }, function (response) {
                 $log.error('Error deleting route with status: ' + response.status);
                 deferred.reject(response);
+            });
+        return deferred.promise;
+    };
+
+    //fetch routes by stops
+    this.getRoutesBySubRouteStartEndStops = function (stops) {
+        var deferred = $q.defer();
+        $http({
+            method: 'POST',
+            url: '/routesBySubRouteStartEndStops',
+            data: JSON.stringify(stops),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                $log.error('Error fetching routes by subroute start/end stop swith status: ' + response.status);
             });
         return deferred.promise;
     };

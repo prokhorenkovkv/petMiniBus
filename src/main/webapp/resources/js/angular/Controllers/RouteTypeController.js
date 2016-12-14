@@ -1,8 +1,10 @@
+'use strict';
+
 miniBus.controller('RouteTypeController', function ($scope, $http, RouteTypeService) {
 
     //fetch all routetypes
     $scope.getRouteTypes = function () {
-        RouteTypeService.getRouteTypes($scope)
+        RouteTypeService.getRouteTypes()
             .then(
                 function (response) {
                     $scope.routeTypes = response;

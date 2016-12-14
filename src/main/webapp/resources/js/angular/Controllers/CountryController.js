@@ -1,8 +1,10 @@
+'use strict';
+
 miniBus.controller('CountryController', function ($scope, $http, CountryService) {
 
     //fetch all countries
     $scope.getCountries = function () {
-        CountryService.getCountries($scope)
+        CountryService.getCountries()
             .then(
                 function (response) {
                     $scope.countries = response;
