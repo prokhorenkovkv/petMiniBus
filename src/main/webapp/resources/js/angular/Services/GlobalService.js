@@ -8,4 +8,20 @@ miniBus.service('GlobalService', function ($http) {
             }
         }
     };
+
+    /*//fetch weekdays
+    this.getWeekDays = function () {
+        var deferred = $q.defer();
+        $http({
+            method: 'GET',
+            url: '/weekDays'
+        })
+            .then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                $log.error('Error fetching weekdays with status: ' + response.status);
+                deferred.reject(response);
+            });
+        return deferred.promise;
+    };*/
 });

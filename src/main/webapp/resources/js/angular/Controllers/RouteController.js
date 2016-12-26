@@ -25,6 +25,7 @@ miniBus.controller('RouteController', function ($scope,
                 "id": $scope.routeId,
                 "routeType": $scope.selectedRouteType,
                 "number": $scope.number,
+                "city": $scope.selectedCity,
                 "stops": $scope.stopsInRoute
             }
         )

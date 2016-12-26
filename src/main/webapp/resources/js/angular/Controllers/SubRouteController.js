@@ -28,9 +28,7 @@ miniBus.controller('SubRouteController', function ($scope,
                     "id": "1",
                     "firstname": "user"
                 }, /*TODO: users*/
-                "routes": null,
-                /*"startStop": $scope.selectedStartStop,
-                 "endStop": $scope.selectedEndStop,*/
+                "routes": $scope.routes,
                 "startEnd": {
                     "startStop": $scope.selectedStartStop,
                     "endStop": $scope.selectedEndStop
@@ -44,7 +42,7 @@ miniBus.controller('SubRouteController', function ($scope,
             .then(
                 function () {
                     $scope.getSubRoutes();
-                    /*$scope.resetSubRouteForm();*/
+                    $scope.resetSubRouteForm();
                 });
     };
 
@@ -56,58 +54,49 @@ miniBus.controller('SubRouteController', function ($scope,
                     $scope.getSubRoutes();
                 });
     };
-    /*
-     //edit subroute. fill in subroute form
-     $scope.editRoute = function (route) {
-     var country = route.stops[0].city.country;
-     var city = route.stops[0].city;
-     var type = route.routeType;
 
-     $scope.routeId = route.id;
-     $scope.selectedRouteType = type;
-     $scope.routeTypes[GlobalService.getIndex($scope.routeTypes, type)] = type;
-     $scope.selectedCountry = country;
-     $scope.countries[GlobalService.getIndex($scope.countries, country)] = country;
-     $scope.number = route.number;
+    //edit subroute. fill in subroute form
+    $scope.editSubRoute = function (subRoute) {
+        var country = subRoute.routes[0].stops[0].city.country;
+        var city = subRoute.routes[0].stops[0].city;
+        $scope.subRouteId = subRoute.id;
+        $scope.selectedCountry = country;
+        $scope.countries[GlobalService.getIndex($scope.countries, country)] = country;
+        CityService.getCitiesByCountry(country)
+            .then(
+                function (response) {
+                    $scope.cities = response;
+                    $scope.selectedCity = city;
+                    $scope.cities[GlobalService.getIndex($scope.cities, city)] = city;
+                    StopService.getStopsByCity(city)
+                        .then(
+                            function (response) {
+                                var startStop = subRoute.startEnd.startStop;
+                                var endStop = subRoute.startEnd.endStop;
+                                $scope.stopsForStart = response;
+                                $scope.stopsForEnd = response;
+                                $scope.selectedStartStop = startStop;
+                                $scope.selectedEndStop = endStop;
+                                $scope.stopsForStart[GlobalService.getIndex($scope.stopsForStart, startStop)] = startStop;
+                                $scope.stopsForEnd[GlobalService.getIndex($scope.stopsForEnd, endStop)] = endStop;
+                            });
+                });
+    };
 
-     CityService.getCitiesByCountry(country)
-     .then(
-     function (response) {
-     $scope.cities = response;
-     $scope.selectedCity = city;
-     $scope.cities[GlobalService.getIndex($scope.cities, city)] = city;
-     StopService.getStopsByCity(city)
-     .then(
-     function (response) {
-     $scope.stops = response;
-     });
-     $scope.stopsInRoute = route.stops;
-     });
 
-     };
+    //reset subroute form
+    $scope.resetSubRouteForm = function () {
+        $scope.selectedCountry = null;
+        $scope.cities = null;
+        $scope.selectedCity = null;
+        $scope.stopsForStart = null;
+        $scope.selectedStartStop = null;
+        $scope.stopsForEnd = null;
+        $scope.selectedEndStop = null;
+        $scope.routesByStartEndStops = null;
+        $scope.routes = null;
+    };
 
-     //reset subroute form
-     $scope.resetRouteForm = function () {
-
-     $scope.selectedRouteType = null;
-     $scope.selectedCountry = null;
-     $scope.cities = null;
-     $scope.selectedCity = null;
-     $scope.number = null;
-     $scope.stops = null;
-     $scope.selectedStop = null;
-     $scope.stopsInRoute = null;
-     };
-
-     //fetch all route types
-     $scope.getRouteTypes = function () {
-     RouteTypeService.getRouteTypes()
-     .then(
-     function (response) {
-     $scope.routeTypes = response;
-     });
-     };
-     */
     //fetch all countries
     $scope.getCountries = function () {
         CountryService.getCountries()
@@ -131,25 +120,38 @@ miniBus.controller('SubRouteController', function ($scope,
         StopService.getStopsByCity($scope.selectedCity)
             .then(
                 function (response) {
-                    $scope.stops = response;
+                    $scope.stopsForStart = response;
+                    $scope.stopsForEnd = response;
                 });
     };
 
+    //fetch routes by start/end stops
     $scope.getRoutesBySubRouteStartEndStops = function () {
-        RouteService.getRoutesBySubRouteStartEndStops($scope.startEnd)
-            .then(
-                function (response) {
-                    $scope.routesByStops = response;
-                });
+        if ($scope.selectedStartStop != null && $scope.selectedEndStop != null) {
+            RouteService.getRoutesBySubRouteStartEndStops({
+                "startStop": $scope.selectedStartStop,
+                "endStop": $scope.selectedEndStop
+            })
+                .then(
+                    function (response) {
+                        $scope.routesByStartEndStops = response;
+                    });
+        }
     };
-    /*
-     //add stop to current route
-     $scope.addStopToRoute = function () {
-     $scope.stopsInRoute.push($scope.selectedStop);
-     };
+    $scope.submitRoute = function (route) {
+        //delete $scope.routesByStartEndStops[GlobalService.getIndex($scope.routesByStartEndStops, route)];
+        $scope.routes.push(route);
+    };
+    $scope.unsubmitRoute = function (route) {
+        $scope.routes.pop(route);
+    };
 
-     //remove stop from current route
-     $scope.deleteStopFromRoute = function (index) {
-     $scope.stopsInRoute.splice(index, 1);
+    /*$scope.getWeekDays = function () {
+     GlobalService.getWeekDays()
+     .then(
+     function (response) {
+     $scope.weekDays = response;
+     console.log($scope.weekDays);
+     });
      };*/
 });

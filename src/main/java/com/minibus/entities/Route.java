@@ -18,6 +18,8 @@ public class Route {
     private RouteType routeType;
     private String number;
     @DBRef
+    private City city;
+    @DBRef
     private ArrayList<Stop> stops;
 
     public Route() {
@@ -25,10 +27,11 @@ public class Route {
     }
 
     @PersistenceConstructor
-    public Route(String id, RouteType routeType, String number, ArrayList<Stop> stops) {
+    public Route(String id, RouteType routeType, String number, City city, ArrayList<Stop> stops) {
         this.id = id;
         this.routeType = routeType;
         this.number = number;
+        this.city = city;
         this.stops = stops;
     }
 
@@ -46,6 +49,14 @@ public class Route {
 
     public String getNumber() {
         return number;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public void setNumber(String number) {
@@ -83,6 +94,7 @@ public class Route {
                 .append("id", id)
                 .append("routeType", routeType)
                 .append("number", number)
+                .append("city", city)
                 .toString();
     }
 }

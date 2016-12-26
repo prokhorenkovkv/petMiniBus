@@ -25,9 +25,9 @@ public class RouteController {
         return routeService.find(route);
     }
 
-    @PostMapping(value = "routesBySubRouteStartEndStops", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Route> getRoutesBySubRouteStartEndStops (@RequestBody Map<String, Stop> startEnd) {
-        return null;
+    @PostMapping(value = "/routesBySubRoute", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Route> getRoutesBySubRoute (@RequestBody Map<String, Stop> subRoute) {
+        return routeService.findBySubRoute(subRoute);
     }
 
     @PostMapping(value = "/route/save", consumes = MediaType.APPLICATION_JSON_VALUE)

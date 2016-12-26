@@ -57,18 +57,18 @@ miniBus.service('RouteService', function ($http, $q, $log) {
     };
 
     //fetch routes by stops
-    this.getRoutesBySubRouteStartEndStops = function (stops) {
+    this.getRoutesBySubRouteStartEndStops = function (startEndStops) {
         var deferred = $q.defer();
         $http({
             method: 'POST',
-            url: '/routesBySubRouteStartEndStops',
-            data: JSON.stringify(stops),
+            url: '/routesBySubRoute',
+            data: JSON.stringify(startEndStops),
             headers: {'Content-Type': 'application/json'}
         })
             .then(function (response) {
-                deferred.resolve(response);
+                deferred.resolve(response.data);
             }, function (response) {
-                $log.error('Error fetching routes by subroute start/end stop swith status: ' + response.status);
+                $log.error('Error fetching routes by subroute start/end stops with status: ' + response.status);
             });
         return deferred.promise;
     };

@@ -2,15 +2,17 @@ package com.minibus.services;
 
 import com.minibus.entities.City;
 import com.minibus.entities.Route;
-import com.minibus.entities.Stop;
 import com.minibus.entities.RouteType;
+import com.minibus.entities.Stop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RouteService {
@@ -29,16 +31,37 @@ public class RouteService {
         return mongoOperations.findById(route, Route.class);
     }
 
-    public Route findByRouteType(RouteType routeType) {
-        return mongoOperations.findOne(Query.query(Criteria.where("type").is(routeType)), Route.class);
+    public List<Route> findByRouteType(RouteType routeType) {
+        return mongoOperations.find(Query.query(Criteria.where("type").is(routeType)), Route.class);
     }
 
-    public List<City> findByStop(Stop stop) {
-        return mongoOperations.find(Query.query(Criteria.where("stop").is(stop)), City.class);
+    public List<Route> findBySubRoute(Map<String, Stop> subRoute) {
+        Stop startStop = subRoute.get("startStop");
+        Stop endStop = subRoute.get("endStop");
+        List<Route> routesByStartStop = findByStop(startStop);
+        List<Route> routesBySubRoute = new ArrayList<Route>();
+        for (Route route : routesByStartStop) {
+            List<Stop> stops = route.getStops();
+            if (stops.contains(endStop) && stops.indexOf(startStop) < stops.indexOf(endStop)) {
+                routesBySubRoute.add(route);
+            }
+        }
+        return routesBySubRoute;
     }
 
-    public List<City> findByCountryId(String countryId) {
-        return mongoOperations.find(Query.query(Criteria.where("countryId").is(countryId)), City.class);
+    public List<Route> findByStop(Stop stop) {
+        List<Route> routesByCity = findByCity(stop.getCity());
+        List<Route> routesByStop = new ArrayList<Route>();
+        for (Route route : routesByCity) {
+            if (route.getStops().contains(stop)) {
+                routesByStop.add(route);
+            }
+        }
+        return routesByStop;
+    }
+
+    public List<Route> findByCity(City city) {
+        return mongoOperations.find(Query.query(Criteria.where("city").is(city)), Route.class);
     }
 
     public void save(Route route) {
