@@ -17,7 +17,7 @@
         <mongo-driver-version>3.2.2</mongo-driver-version>
         <spring-mongodb-version>1.9.2.RELEASE</spring-mongodb-version>
         <spring-data-commons-version>1.12.3.RELEASE</spring-data-commons-version>
-        <jackson-version>2.8.3</jackson-version>
+        <!--<jackson-version>2.8.3</jackson-version>-->
         <commons-lang3-version>3.0</commons-lang3-version>
         <junit-version>4.11</junit-version>
         <mockito-version>1.10.19</mockito-version>
@@ -86,11 +86,11 @@
         </dependency>
 
         <!--Jackson JSON mapper-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-version}</version>
-        </dependency>
+        </dependency>-->
 
         <!--Apache commons-->
         <dependency>
